@@ -72,4 +72,5 @@ if len(costs) > 0:
     print "平均: %.1f ms" % (np.mean(a))
     print "90分位: %.1f ms" % (np.percentile(a, 90)) 
     print "95分位: %.1f ms" % (np.percentile(a, 95))
+    print "最快: %.1f ms" % (np.min(a))
     print "最慢: %.1f ms" % (np.max(a))
