@@ -30,9 +30,9 @@ class LR(object):
                 pass
 
         y_p_train = self.predict(self.train_x)
-        print("train accuracy: %.2f" % (100 - np.mean(np.abs(y_p_train - self.train_y)) * 100))
+        print("train accuracy: %.2f%%" % (100 - np.mean(np.abs(y_p_train - self.train_y)) * 100))
         y_p_test = self.predict(self.test_x)
-        print("test accuracy: %.2f" % (100 - np.mean(np.abs(y_p_test - self.test_y)) * 100))
+        print("test accuracy: %.2f%%" % (100 - np.mean(np.abs(y_p_test - self.test_y)) * 100))
 
 
 
@@ -46,16 +46,17 @@ class LR(object):
         y_predict_labels = [1 if elem > 0.5 else 0 for elem in y_predict]
         return np.array(y_predict_labels)[:, np.newaxis]
 
-    def load_data(self):
-        data_x, data_y = make_blobs(n_samples= 1000, centers=2)
-
+    def draw(self, data_x, data_y):
         fig = plt.figure(figsize=(8,6))
         plt.scatter(data_x[:,0], data_x[:,1], c=data_y)
         plt.title("Dataset")
-        plt.xlabel("First feature")
-        plt.ylabel("Second feature")
+        plt.xlabel("x1")
+        plt.ylabel("x2")
         plt.show()
 
+    def load_data(self):
+        data_x, data_y = make_blobs(n_samples= 1000, centers=2)
+        self.draw(data_x, data_y)
         data_y = data_y[:, np.newaxis]
 
         self.train_x, self.test_x, self.train_y, self.test_y = train_test_split(data_x, data_y, test_size=0.2)
