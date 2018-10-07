@@ -28,7 +28,7 @@ class LR(object):
             predict_y = self.sigmoid(np.dot(train_x, self.w))
             self.w += self.lr * np.dot(train_x.T, (train_y - predict_y))
             if k % 100 == 0:
-                print self.loss()
+                print (k, self.loss())
                 #print self.w.T
                 pass
 
@@ -42,9 +42,7 @@ class LR(object):
     def loss(self):
         predict_y = self.sigmoid(np.dot(self.train_x, self.w))
         # 0.0000是为了防止 RuntimeWarning: divide by zero encountered in log
-        loss_1 = self.train_y * np.log(predict_y+0.00001)
-        loss_2 = (1 - self.train_y) * np.log(1-predict_y+0.00001)
-        loss = loss_1 + loss_2
+        loss = self.train_y * np.log(predict_y+0.00001) + (1 - self.train_y) * np.log(1-predict_y+0.00001)
         return np.sum(loss)
 
     def predict(self, X):
