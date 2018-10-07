@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
@@ -25,7 +28,7 @@ class LR(object):
             predict_y = self.sigmoid(np.dot(train_x, self.w))
             self.w += self.lr * np.dot(train_x.T, (train_y - predict_y))
             if k % 100 == 0:
-                #print self.loss()
+                print self.loss()
                 #print self.w.T
                 pass
 
@@ -38,13 +41,16 @@ class LR(object):
 
     def loss(self):
         predict_y = self.sigmoid(np.dot(self.train_x, self.w))
-        loss = self.train_y * np.log(predict_y) + (1 - self.train_y)*(np.log(1-predict_y))
+        # 0.0000是为了防止 RuntimeWarning: divide by zero encountered in log
+        loss_1 = self.train_y * np.log(predict_y+0.00001)
+        loss_2 = (1 - self.train_y) * np.log(1-predict_y+0.00001)
+        loss = loss_1 + loss_2
         return np.sum(loss)
 
     def predict(self, X):
-        y_predict = self.sigmoid(np.dot(X, self.w))
-        y_predict_labels = [1 if elem > 0.5 else 0 for elem in y_predict]
-        return np.array(y_predict_labels)[:, np.newaxis]
+        predict_y = self.sigmoid(np.dot(X, self.w))
+        predict_y_labels = [1 if elem > 0.5 else 0 for elem in predict_y]
+        return np.array(predict_y_labels)[:, np.newaxis]
 
     def draw(self, data_x, data_y):
         fig = plt.figure(figsize=(8,6))
