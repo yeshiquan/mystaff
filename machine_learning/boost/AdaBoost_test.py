@@ -51,14 +51,14 @@ print_t(title, D2)
 
 print("迭代2：根据8.5分类")
 print("====================")
-Gx = np.array([1,1,1,1,1,1,1,1,1,-1])
+Gx = G2(X)
+YGx = Y*Gx
 # x为3,4,5时分类错误
 e2 = D2[0][3]*1 + D2[0][4]*1 + D2[0][5]*1
 print_t("e2", e2)
 a2 = 1.0/2.0*np.log((1-e2)/e2)
 print_t("a2", a2)
 
-YGx = Y*Gx
 print_t(YGx_title, YGx)
 fa =  f(a2,YGx)
 sum_fa = np.sum(D2*fa)
@@ -68,14 +68,14 @@ print_t(title, D3)
 
 print("迭代3：根据5.5分类")
 print("====================")
-Gx = np.array([-1,-1,-1,-1,-1,-1,1,1,1,1])
+Gx = G3(X)
+YGx = Y*Gx
 # x为0,1,2,9时分类错误
 e3 = D3[0][0]*1 + D3[0][1]*1 + D3[0][2]*1 + D3[0][9]*1
 print_t("e3", e3)
 a3 = 1.0/2.0*np.log((1-e3)/e3)
 print_t("a3", a3)
 
-YGx = Y*Gx
 print_t(YGx_title, YGx)
 fa =  f(a3,YGx)
 sum_fa = np.sum(D3*fa)
@@ -85,6 +85,7 @@ print_t(title, D4)
 
 print("验证模型")
 print("====================")
+print("a1,a2,a3", a1, a2, a3)
 fx =  G(a1,a2,a3,X)
 print_t("fx", fx)
 Gx = sign(fx)
